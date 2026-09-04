@@ -77,4 +77,4 @@ an exact substring of that gene's CDS.
   the supplied CDS FASTA. Exact counting is a useful screen but is not a full
   PCR-specificity analysis allowing mismatches.
 - Genes for which no pair met the exon-boundary and VIGS criteria retain an
-  explicit failure status in the summary workbook.
+  explicit failure status in the summary workbook for manual redesign if desired.
