@@ -4,14 +4,14 @@ Code and supporting data accompanying Emma C. Watts' thesis.
 
 ## RT-qPCR primer design
 
-`primer_design/primer_design.py` designs RT-qPCR primers for NbLab360
+`primer_design/primer_design.py` designs RT-qPCR primers for Lab3.6
 *Nicotiana benthamiana* gene models. It uses Primer3 to generate 70--200 bp
 products and prioritises pairs in which at least one primer overlaps a CDS exon
 boundary by at least five nucleotides. When a VIGS fragment can be located in a
 target CDS, primer pairs overlapping that region can be excluded.
 
-The large NbLab360 reference FASTA and GFF files are deliberately not included
-in this repository. Users must obtain them separately and provide their paths on
+The large NbLab360 reference FASTA and GFF files are not included
+in this repository. Users must obtain them from the LAB 3.6 genome annotation [Ranawaka et al., 2023](https://www.nature.com/articles/s41477-023-01489-8) and provide their paths on
 the command line.
 
 ### Installation
@@ -58,11 +58,9 @@ listed in `vigs_fragments.csv`.
 
 ### VIGS metadata
 
-`primer_design/data/vigs_fragments.csv` records the physical VIGS constructs,
+`primer_design/data/vigs_fragments.csv` records the VIGS fragments,
 their biological target names, and all intended NbLab360 targets. Several
-constructs target two homologues. A construct sequence is not necessarily an
-exact substring of every intended target, so the table must not be converted
-blindly into one exact sequence per gene.
+constructs target two homologues.
 
 Before rerunning VIGS-aware primer exclusion, each construct should be aligned
 to every intended target and the matched target interval recorded. The current
