@@ -1,0 +1,15 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Large reference data and local run outputs
+databases/
+results/
+*.fasta
+*.fa
+*.fna
+*.gff
+*.gff3
+
