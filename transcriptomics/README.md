@@ -255,3 +255,46 @@ not redistributed here.
 - Hamel and Grosse-Holz outputs are not cross-study batch corrected.
 - Biological sample groups must come from verified metadata, never accession
   order alone.
+
+## References and data sources
+
+### Source datasets
+
+- Grosse-Holz, F. M., Kelly, S., Blaskowski, S., Kaschani, F., Kaiser, M., and
+  van der Hoorn, R. A. L. (2018). The transcriptome, extracellular proteome and
+  active secretome of agroinfiltrated *Nicotiana benthamiana* uncover a large,
+  diverse protease repertoire. *Plant Biotechnology Journal*, 16, 1068–1084.
+  [https://doi.org/10.1111/pbi.12852](https://doi.org/10.1111/pbi.12852).
+  Sequence data: [NCBI BioProject PRJNA390722](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA390722).
+- Hamel, L.-P., Tardif, R., Poirier-Gravel, F., *et al.* (2024). Molecular
+  responses of agroinfiltrated *Nicotiana benthamiana* leaves to the
+  biopharmaceutical protein influenza virus hemagglutinin. *Plant
+  Biotechnology Journal*, 22, 1078–1100.
+  [https://doi.org/10.1111/pbi.14247](https://doi.org/10.1111/pbi.14247).
+  Sequence data: [NCBI BioProject PRJNA975177](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA975177)
+  and [GEO GSE233178](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE233178).
+- Ranawaka, B., An, J., Lorenc, M. T., *et al.* (2023). A multi-omic
+  *Nicotiana benthamiana* resource for fundamental research and biotechnology.
+  *Nature Plants*, 9, 1558–1571.
+  [https://doi.org/10.1038/s41477-023-01489-8](https://doi.org/10.1038/s41477-023-01489-8).
+  Assembly and annotation: [Plant GARDEN NbLab360](https://plantgarden.jp/en/list/t4100/genome/t4100.G004).
+
+### Software and methods
+
+- Bolger, A. M., Lohse, M., and Usadel, B. (2014). Trimmomatic: a flexible
+  trimmer for Illumina sequence data. *Bioinformatics*, 30, 2114–2120.
+  [https://doi.org/10.1093/bioinformatics/btu170](https://doi.org/10.1093/bioinformatics/btu170).
+- Bray, N. L., Pimentel, H., Melsted, P., and Pachter, L. (2016).
+  Near-optimal probabilistic RNA-seq quantification. *Nature Biotechnology*,
+  34, 525–527.
+  [https://doi.org/10.1038/nbt.3519](https://doi.org/10.1038/nbt.3519).
+- Soneson, C., Love, M. I., and Robinson, M. D. (2016). Differential analyses
+  for RNA-seq: transcript-level estimates improve gene-level inferences.
+  *F1000Research*, 4, 1521.
+  [https://doi.org/10.12688/f1000research.7563.2](https://doi.org/10.12688/f1000research.7563.2).
+- Love, M. I., Huber, W., and Anders, S. (2014). Moderated estimation of fold
+  change and dispersion for RNA-seq data with DESeq2. *Genome Biology*, 15,
+  550. [https://doi.org/10.1186/s13059-014-0550-8](https://doi.org/10.1186/s13059-014-0550-8).
+- Andrews, S. (2010). FastQC: a quality control tool for high throughput
+  sequence data. [Babraham Bioinformatics](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+- NCBI. SRA Toolkit. [https://github.com/ncbi/sra-tools](https://github.com/ncbi/sra-tools).

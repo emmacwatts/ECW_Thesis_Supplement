@@ -11,6 +11,10 @@ Code and supporting data accompanying Emma C. Watts' thesis.
 
 ## RT-qPCR primer design
 
+See [`primer_design/README.md`](primer_design/README.md) for reference-file
+acquisition, installation, all command-line options, selection rules, output
+interpretation, VIGS handling, and validation limitations.
+
 `primer_design/primer_design.py` designs RT-qPCR primers for NbLab360
 *Nicotiana benthamiana* gene models. It uses Primer3 to generate 70--200 bp
 products and prioritises pairs in which at least one primer overlaps a CDS exon
