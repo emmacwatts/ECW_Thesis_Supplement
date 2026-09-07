@@ -1,5 +1,6 @@
 .DS_Store
 .venv/
+kallisto_output/
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -7,9 +8,12 @@ __pycache__/
 # Large reference data and local run outputs
 databases/
 results/
+transcriptomics/results/
+transcriptomics/references/
+transcriptomics/local_data/
+transcriptomics/*.xlsx
 *.fasta
 *.fa
 *.fna
 *.gff
 *.gff3
-
