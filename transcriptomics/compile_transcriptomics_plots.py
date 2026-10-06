@@ -138,6 +138,7 @@ def plot_one(
     mock_prefix: str,
     treatment_prefix: str,
     dpi_label: str,
+    y_axis_label: str = "Mean TPM",
 ) -> plt.Figure:
     plt.style.use("seaborn-v0_8-darkgrid")
     fig, axes = plt.subplots(1, 2, figsize=(14.5, 6.2))
@@ -160,7 +161,7 @@ def plot_one(
         )
     axes[0].set_xticks(positions, genes)
     axes[0].set_xlabel("Gene ID")
-    axes[0].set_ylabel("Mean TPM")
+    axes[0].set_ylabel(y_axis_label)
     axes[0].legend(
         loc="lower center", bbox_to_anchor=(0.5, 1.03), ncol=len(bar_conditions),
         frameon=False, fontsize=9,
@@ -188,7 +189,7 @@ def plot_one(
             )
             axes[1].fill_between(times, means - sems, means + sems, color=colour, alpha=0.18)
     axes[1].set_xlabel(dpi_label)
-    axes[1].set_ylabel("Mean TPM")
+    axes[1].set_ylabel(y_axis_label)
     axes[1].legend(
         loc="lower center", bbox_to_anchor=(0.5, 1.03), ncol=2,
         frameon=False, fontsize=8,
@@ -198,69 +199,6 @@ def plot_one(
         axis.spines["top"].set_visible(False)
         axis.spines["right"].set_visible(False)
     fig.suptitle(target, x=0.06, y=0.98, ha="left", fontsize=20, fontstyle="italic")
-    return fig
-
-
-def plot_deseq2_target(
-    target: str,
-    genes: list[str],
-    main: pd.DataFrame,
-    main_conditions: list[str],
-    hamel: pd.DataFrame,
-    hamel_conditions: list[str],
-    mock_prefix: str,
-    treatment_prefix: str,
-    dpi_label: str,
-) -> plt.Figure:
-    """Plot each gene separately so all comparisons remain within one gene."""
-    plt.style.use("seaborn-v0_8-darkgrid")
-    fig, axes = plt.subplots(
-        len(genes), 2, figsize=(14.5, 4.6 * len(genes)), squeeze=False,
-    )
-    fig.subplots_adjust(
-        top=0.88 if len(genes) == 1 else 0.93,
-        left=0.07, right=0.98, bottom=0.09, hspace=0.48, wspace=0.30,
-    )
-    preferred = ["Non-infiltrated", "Mock", "EV", "p19", "p19HA"]
-    bar_conditions = [c for c in preferred if c in hamel_conditions]
-    bar_conditions.extend(c for c in hamel_conditions if c not in bar_conditions)
-    bar_colours = ["#aeb4ba", "#88a7c4", "#82b9a4", "#c59b87", "#9b8db6"]
-
-    for row_index, gene in enumerate(genes):
-        bar_axis, line_axis = axes[row_index]
-        positions = np.arange(len(bar_conditions))
-        means = hamel.loc[gene, [f"{c}_mean" for c in bar_conditions]].to_numpy(float)
-        errors = hamel.loc[gene, [f"{c}_error" for c in bar_conditions]].to_numpy(float)
-        bar_axis.bar(
-            positions, means, yerr=errors, capsize=3,
-            color=bar_colours[:len(bar_conditions)], edgecolor="#555555",
-            linewidth=0.7, alpha=0.85,
-        )
-        bar_axis.set_xticks(positions, bar_conditions, rotation=25, ha="right")
-        bar_axis.set_title(f"{gene} – Hamel et al.")
-        bar_axis.set_ylabel("Mean DESeq2-normalised count")
-
-        for prefix, label, colour in (
-            (mock_prefix, "Mock", "#a9c2dc"),
-            (treatment_prefix, "Agroinfiltrated", "#5f8fbe"),
-        ):
-            selected = series(main_conditions, prefix)
-            times = np.array([time for time, _ in selected])
-            means = np.array([main.at[gene, f"{condition}_mean"] for _, condition in selected], float)
-            errors = np.array([main.at[gene, f"{condition}_error"] for _, condition in selected], float)
-            line_axis.plot(times, means, marker="o", linewidth=2, color=colour, label=label)
-            line_axis.fill_between(times, means - errors, means + errors, color=colour, alpha=0.18)
-        line_axis.set_title(f"{gene} – Grosse-Holz et al.")
-        line_axis.set_xlabel(dpi_label)
-        line_axis.set_ylabel("Mean DESeq2-normalised count")
-        line_axis.legend(frameon=False)
-
-        for axis in (bar_axis, line_axis):
-            axis.set_ylim(bottom=0)
-            axis.spines["top"].set_visible(False)
-            axis.spines["right"].set_visible(False)
-
-    fig.suptitle(target, x=0.07, y=0.99, ha="left", fontsize=20, fontstyle="italic")
     return fig
 
 
@@ -339,10 +277,11 @@ def main() -> None:
             for target, target_rows in groups.groupby("target", sort=False):
                 genes = target_rows.gene_id.tolist()
                 base = Path(target_rows.image_file.iloc[0]).stem
-                figure = plot_deseq2_target(
+                figure = plot_one(
                     target, genes, main_deseq, main_deseq_conditions,
                     hamel_deseq, hamel_deseq_conditions,
                     args.mock_series, args.treatment_series, args.dpi_label,
+                    y_axis_label="Mean DESeq2-normalised count",
                 )
                 figure.savefig(
                     deseq_dir / f"{base}_DESeq2.png", dpi=300, bbox_inches="tight"

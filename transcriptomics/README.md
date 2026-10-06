@@ -9,7 +9,8 @@ This directory contains a reusable three-stage RNA-seq workflow:
 3. `compile_transcriptomics_plots.py` extracts any requested gene IDs from two
    similarly formatted summary tables and creates per-target plots, a combined
    PDF, and a long-form CSV of the plotted values. Optional DESeq2 summary
-   inputs create a second, within-gene comparison figure set.
+  inputs create a second figure set using the same target-level layout, with
+  DESeq2-normalised-count axis labels.
 
 The scripts are reusable; `gene_id_groups.example.csv` is the thesis-specific
 example used to select 73 NbLab360 IDs in 38 named target groups. Replace that
@@ -207,10 +208,11 @@ The existing TPM plots are still produced. A `deseq2/` subdirectory additionally
 contains one PNG per named target, `gene_expression_plots_DESeq2.pdf`, and
 `gene_expression_values_DESeq2.csv`.
 
-Each DESeq2 figure has one row per NbL ID and two study panels per row. Thus a
-target represented by two NbL IDs has four panels: Hamel and Grosse-Holz for
-the first ID, followed by Hamel and Grosse-Holz for the second. This preserves
-within-gene comparisons and avoids averaging normalised counts across homologues.
+Each DESeq2 figure uses the same two-panel target layout as the TPM figures:
+Hamel grouped bars on the left and the Grosse-Holz mock/agroinfiltrated
+time-course on the right. Multiple NbL IDs remain separately represented in
+the bars and time-course legend; the values are not averaged across IDs. Only
+the y-axis label distinguishes the DESeq2-normalised counts from TPM.
 
 These are descriptive plots of DESeq2-normalised counts. They do not replace
 formal contrasts and do not report log2 fold changes, P-values, or adjusted
