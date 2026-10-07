@@ -1,9 +1,4 @@
 """Rebuild the four ethylene thesis figures in the shared house style.
-
-Quantitative values are read directly from the Prism archives. Figure 1C is the
-sole exception: no fresh-weight source table was supplied, so its eight values
-are approximate values digitised from the original figure and are clearly
-recorded in the methods note produced by this script.
 """
 
 from __future__ import annotations
@@ -386,26 +381,6 @@ def write_figure4_stats() -> None:
                             "t": result.statistic, "df": result.df, "p_value": result.pvalue,
                             "significant_p_lt_0.05": result.pvalue < 0.05})
     pd.DataFrame(comparisons).to_csv(LOGS / "cova_elisa_per_dilution_welch_tests.csv", index=False)
-
-
-def write_methods_note() -> None:
-    LOGS.mkdir(parents=True, exist_ok=True)
-    note = """Ethylene figure reformatting methods note
-
-Figures were redrawn in Python/Matplotlib using the Nature Biotechnology-style conventions established by the CORE LMU leaf-age figures: Helvetica Neue Light typography in dark grey (#303030), #E9EFF6 quantitative panels, white gridlines, the shared muted blue/orange palette, translucent borderless colour-matched replicate points, thin dark-grey mean +/- SEM error bars, and unobtrusive panel labels. Statistical annotations reproduce the supplied figures/Prism results; no new hypothesis tests were substituted. Detailed statistical prose is kept in this note rather than printed inside the final plot. Figure 3 is the final five-panel composite: the former Figure 4 CoVA ELISA plot is included as panel E.
-
-Data provenance:
-- Fig1B: Leaf_count.prism, raw WT and 40-1 columns (n=8 each).
-- Fig1C: source values were not present in the supplied Prism or Excel files. Approximate values [WT: 13, 18, 23, 39 g; 40-1: 50, 67, 80, 83 g] were digitised from OriginalFigures/Fig1.png. Replace these arrays in the script if the source table becomes available.
-- Fig2B: PvirB_lux_chemiluminescence.prism (WT n=5; 40-1 n=6).
-- Fig3B: GFP_fluorescence.prism (n=6 per condition).
-- Fig3D: GFP_western.prism (n=6 per genotype). Prism reports Welch P=0.1101516. This differs from P=0.0739 printed in the supplied composite; the reformatted panel uses the current Prism result.
-- Fig4: CoVA_ELISA.prism (n=6 per genotype and dilution). The two-way ANOVA was independently rerun on raw A450 values and reproduced the supplied result: genotype P=0.9250913, dilution P=5.4766e-18, and genotype x dilution P=0.1732992. Thus there is no overall genotype effect and no genotype-dependent dilution response. Exploratory two-sided Welch tests were also nonsignificant at every dilution (1:3 P=0.1374; 1:30 P=0.1373; 1:300 P=0.3845; 1:3000 P=0.4200). Full outputs are in cova_elisa_two_way_anova.csv and cova_elisa_per_dilution_welch_tests.csv.
-
-Image panels are crops from the supplied composite PNGs because separate full-resolution source images/blot scans were not included. They were not recoloured or analytically altered.
-"""
-    (LOGS / "ethylene_figure_reformatting_methods_note.txt").write_text(note, encoding="utf-8")
-
 
 def main() -> None:
     figure1()
