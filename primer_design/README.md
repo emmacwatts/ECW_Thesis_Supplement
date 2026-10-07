@@ -11,6 +11,9 @@ The program is general for gene IDs represented in the supplied FASTA and GFF,
 although the included example data and retained outputs use the LAB 3.60
 *Nicotiana benthamiana* annotation.
 
+Note that html output files should be downloaded and viewed, as they cannot be 
+viewed directly in GitHub.
+
 ## Files in this directory
 
 ```text
