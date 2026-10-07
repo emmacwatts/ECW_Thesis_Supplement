@@ -11,7 +11,7 @@ Code and supporting data accompanying the PhD thesis of Emma C. Watts (2026, Uni
 
 ## Data visualisation
 
-The `data_visualisaion/` folder groups the figure-generation scripts used to
+The `data_visualisation/` folder groups the figure-generation scripts used to
 visualise thesis results across the project.
 
 ## RT-qPCR primer design
