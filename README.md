@@ -27,8 +27,7 @@ boundary by at least five nucleotides. When a VIGS fragment can be located in a
 target CDS, primer pairs overlapping that region can be excluded.
 
 The NbLab360 reference FASTA and GFF files are not included in this repository
-due to their file size. Users must obtain them separately and provide their 
-paths on the command line.
+due to their file size. Users can obtain from [Ranawaka et al. (2023)](https://doi.org/10.1038/s41477-023-01489-8).
 
 ### Installation
 
