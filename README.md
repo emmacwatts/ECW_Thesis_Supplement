@@ -1,15 +1,13 @@
 # ECW Thesis Supplement
 
-Code and supporting data accompanying Emma C. Watts' thesis.
+Code and supporting data accompanying the PhD thesis of Emma C. Watts (2026, University of Oxford, Department of Biology).
 
 ## Repository contents
 
-- `data_visualisaion/`: data visualisation and figure-generation
-  scripts for listed by chapter.
+- `data_visualisation/`: data visualisation and figure scripts listed by chapter.
 - `primer_design/`: RT-qPCR primer design and thesis VIGS target metadata.
 - `transcriptomics/`: RNA-seq preprocessing, expression summarisation, and
   selected-gene plot compilation.
-- `primer_design/output/`: retained outputs from the thesis primer-design run.
 
 ## Data visualisation
 
@@ -28,9 +26,9 @@ products and prioritises pairs in which at least one primer overlaps a CDS exon
 boundary by at least five nucleotides. When a VIGS fragment can be located in a
 target CDS, primer pairs overlapping that region can be excluded.
 
-The large NbLab360 reference FASTA and GFF files are deliberately not included
-in this repository. Users must obtain them separately and provide their paths on
-the command line.
+The NbLab360 reference FASTA and GFF files are not included in this repository
+due to their file size. Users must obtain them separately and provide their 
+paths on the command line.
 
 ### Installation
 
