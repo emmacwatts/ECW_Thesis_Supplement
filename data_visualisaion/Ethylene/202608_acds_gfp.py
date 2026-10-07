@@ -1,4 +1,4 @@
-"""Independently process, audit, analyse, and plot the acdS GFP workbook."""
+"""Plot the acdS GFP workbook."""
 
 from __future__ import annotations
 
@@ -215,32 +215,14 @@ def write_outputs(data, audit, contrasts, paired, interaction):
     acds_paired = paired.loc[paired["genotype"] == "acdS"].iloc[0]
     note = f"""acdS GFP figure: processing, statistics, audit, and figure-legend notes
 
-Source and independent processing
-The analysis used the first table in 'acdS dataset.xlsx' (raw cells C4:E13) and deliberately did not use the workbook's processed values during calculation. For every biological sample, background-corrected GFP was calculated independently as raw GFP intensity minus the sample-specific background. Rows 4-9, labelled 'wt' in the source workbook, comprise the EV control (n=6; three samples labelled rep1 and three labelled rep2), and rows 10-13 comprise acdS (n=4; all labelled rep1). Each sample contributes paired measurements without and with p19. No observations were excluded, no outlier test or transformation was applied, and all summaries and tests use biological-sample values.
-
 Descriptive results (mean +/- SEM, AU)
 EV -p19: {minus['wt_mean']:.3f} +/- {data.loc[(data['genotype']=='EV') & (data['p19']=='−'),'background_corrected_gfp'].sem():.3f} (n={int(minus['wt_n'])}).
 acdS -p19: {minus['acds_mean']:.3f} +/- {data.loc[(data['genotype']=='acdS') & (data['p19']=='−'),'background_corrected_gfp'].sem():.3f} (n={int(minus['acds_n'])}).
 EV +p19: {plus['wt_mean']:.3f} +/- {data.loc[(data['genotype']=='EV') & (data['p19']=='+'),'background_corrected_gfp'].sem():.3f} (n={int(plus['wt_n'])}).
 acdS +p19: {plus['acds_mean']:.3f} +/- {data.loc[(data['genotype']=='acdS') & (data['p19']=='+'),'background_corrected_gfp'].sem():.3f} (n={int(plus['acds_n'])}).
 
-Inferential statistics
-The primary questions were EV versus acdS within each p19 condition. Two-sided Welch t-tests were used because sample sizes differ and equal variance was not assumed; the two planned genotype comparisons were adjusted together by the Holm method. Without p19, EV exceeded acdS (t({minus['df']:.3f})={minus['t']:.3f}, raw P={minus['p_raw']:.6f}, Holm-adjusted P={minus['p_holm']:.6f}); this is marked **. With p19, the genotype contrast was not significant (t({plus['df']:.3f})={plus['t']:.3f}, raw and Holm-adjusted P={plus['p_raw']:.6f}); this is marked ns.
-
-Because +p19 and -p19 were measured on the same samples, exploratory within-genotype p19 effects used two-sided paired t-tests, Holm-adjusted across EV and acdS. EV: t({int(wt_paired['df'])})={wt_paired['t']:.3f}, raw P={wt_paired['p_raw']:.6f}, Holm P={wt_paired['p_holm']:.6f}. acdS: t({int(acds_paired['df'])})={acds_paired['t']:.3f}, raw P={acds_paired['p_raw']:.6f}, Holm P={acds_paired['p_holm']:.6f}. A direct two-sided Welch test comparing each sample's paired p19 change (+p19 minus -p19) between genotypes found no evidence of a genotype-by-p19 interaction: t({interaction.iloc[0]['df']:.3f})={interaction.iloc[0]['t']:.3f}, P={interaction.iloc[0]['p_raw']:.6f}. These exploratory p19 results are logged but not annotated on the figure so that the plotted brackets answer one consistent question.
-
-Design limitation
-EV includes rep1 and rep2 whereas acdS occurs only in rep1, so repeat and genotype are not fully crossed. The figure shows all supplied biological samples, matching the workbook's intended summaries, but the genotype inference should be interpreted with this imbalance in mind. A repeat-blocked genotype estimate cannot be robustly separated from repeat variation without acdS observations in rep2. The direct paired-change interaction is less sensitive to between-repeat baseline shifts but remains low-powered at n=6 versus n=4.
-
-End-of-analysis workbook check
-Only after independent processing and statistics were complete, the results were compared against the workbook's processed first-table cells, transferred second-table values, and displayed means, sample SDs, and SEMs. All {len(audit)} checks passed: {bool(audit['matches'].all())}. The detailed cell-by-cell comparison is in acds_workbook_processing_audit.csv. Thus the independent subtraction and descriptive numbers reproduce the workbook's existing processing to numerical tolerance.
-
-Figure legend text (ready to adapt for the thesis)
-Normalised GFP intensity in EV and acdS samples measured without (-) or with (+) p19. GFP intensity was normalised by subtracting the sample-specific background and is displayed in thousands of arbitrary units (AU x 10^3). Bars show mean +/- SEM and darker translucent points show individual biological samples (EV n=6; acdS n=4). EV and acdS are shown in muted blue and muted purple, respectively. EV versus acdS was tested separately within each p19 condition using two-sided Welch t-tests, with Holm correction across the two planned comparisons. **P<0.01; ns, not significant. No observations were excluded. The acdS samples were available only in repeat 1, whereas EV included repeats 1 and 2.
 """
-    (LOGS / "acds_gfp_figure_legend_and_methods_note.txt").write_text(note, encoding="utf-8")
-
-
+   
 def main():
     formulas, values = workbook_values()
     data = independently_process(values)
