@@ -4,10 +4,17 @@ Code and supporting data accompanying Emma C. Watts' thesis.
 
 ## Repository contents
 
+- `data_visualisaion/`: data visualisation and figure-generation
+  scripts for listed by chapter.
 - `primer_design/`: RT-qPCR primer design and thesis VIGS target metadata.
 - `transcriptomics/`: RNA-seq preprocessing, expression summarisation, and
   selected-gene plot compilation.
 - `primer_design/output/`: retained outputs from the thesis primer-design run.
+
+## Data visualisation
+
+The `data_visualisaion/` folder groups the figure-generation scripts used to
+visualise thesis results across the project.
 
 ## RT-qPCR primer design
 
